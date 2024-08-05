@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Inicial</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Bem-vindo à Página Inicial</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="{% url 'criar_registro_emocao' %}">Criar Registro Emocional</a></li>
+            <li><a href="{% url 'listar_registros_emocao' %}">Listar Registros Emocionais</a></li>
+            <li><a href="{% url 'analise_padroes_emocionais' %}">Análise de Padrões Emocionais</a></li>
+            <li><a href="{% url 'integracao_diario_pessoal' %}">Integração com Diário Pessoal</a></li>
+            <li><a href="{% url 'personalizacao' %}">Personalização</a></li>
+            <li><a href="{% url 'sugestao_atividades' %}">Sugestão de Atividades</a></li>
+            <li><a href="{% url 'compartilhamento_progresso' %}">Compartilhamento de Progresso</a></li>
+        </ul>
+    </nav>
+    <footer>
+        <p>&copy; 2024 Sua Plataforma de Monitoramento Emocional</p>
+    </footer>
+</body>
+</html>

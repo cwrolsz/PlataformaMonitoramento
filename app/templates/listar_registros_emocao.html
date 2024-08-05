@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Listar Registros Emocionais</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1>Listar Registros Emocionais</h1>
+    <ul>
+        {% for registro in registros %}
+            <li>{{ registro.usuario }} - {{ registro.emocao }} - {{ registro.data }} - {{ registro.intensidade }} - {{ registro.descricao }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'criar_registro_emocao' %}">Criar novo registro</a>
+</body>
+</html>
