@@ -1,16 +1,135 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
-    <title>Criar Registro Emocional</title>
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Registro de Emoção - Monitoramento de Emoções</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fcf5d6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #d1fece;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            flex: 1;
+            margin: 0 5px;
+        }
+
+        .cancelar {
+            background-color: #91bef8;
+            color: #ffffff;
+        }
+
+        .cadastrar {
+            background-color: #91bef8;
+            color: #fff;
+        }
+
+        .btn-home-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px; /* Ajusta a distância entre o botão "Voltar" e os outros botões */
+        }
+
+        .btn-home {
+            background-color: #00c8ff;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-size: 12px;
+            cursor: pointer;
+            padding: 10px 20px;
+            border-radius: 4px;
+            width: 100%; /* Faz com que o botão ocupe toda a largura do container */
+            max-width: 150px; /* Define uma largura máxima para o botão */
+        }
+
+        .btn-home:hover {
+            background-color: #ffd000;
+        }
+    </style>
 </head>
 <body>
-    <h1>Criar Registro Emocional</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Salvar</button>
-    </form>
+    <div class="container">
+        <h2>Criar Registro de Emoção</h2>
+        <form id="personalizacao-form">
+            <div class="form-group">
+                <label for="nome_completo">Nome</label>
+                <input type="text" id="nome" name="nome" required>
+            </div>
+            <div class="form-group">
+                <label for="Emoção">Emoção</label>
+                <input type="text" id="Emocao" name="Emocao" required>
+            </div>
+            <div class="form-group">
+                <label for="data">Data</label>
+                <input type="text" id="data" name="data">
+            </div>
+            <div class="form-group">
+                <label for="Intensidade">Intensidade</label>
+                <input type="text" id="Intensidade" name="Intensidade">
+            </div>
+            <div class="form-group">
+                <label for="Descrição">Descrição</label>
+                <input type="text" id="Descrição" name="Descrição">
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn cancelar">Cancelar</button>
+                <button type="submit" class="btn cadastrar">Adicionar</button>
+            </div>
+            <div class="btn-home-container">
+                <a href="{% url 'home' %}" class="btn-home">Voltar para página inicial</a>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import RegistroEmocaoForm
 from .models import RegistroEmocao, AnalisePadroesEmocionais, IntegracaoDiarioPessoal, Personalizacao, SugestaoAtividades, CompartilhamentoProgresso
+from .models import Emocao
 
 def criar_registro_emocao(request):
     if request.method == 'POST':
@@ -17,6 +18,19 @@ def listar_registros_emocao(request):
     registros = RegistroEmocao.objects.all()
     return render(request, 'listar_registros_emocao.html', {'registros': registros})
 
+def criar_emocao(request):
+    if request.method == 'POST':
+        form = RegistroEmocaoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('listar_emocoes')  # Redireciona para a página de listagem após salvar
+    else:
+        form = RegistroEmocaoForm()
+    return render(request, 'criar_registro_emocao.html', {'form': form})
+
+def listar_emocoes(request):
+    emocoes = Emocao.objects.all()
+    return render(request, 'registro_emoções.html', {'emocoes': emocoes})
 
 def analise_padroes_emocionais(request):
     padroes = AnalisePadroesEmocionais.objects.all()

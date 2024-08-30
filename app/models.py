@@ -24,9 +24,16 @@ class RegistroEmocao(models.Model):
     descricao = models.TextField()
 
     def __str__(self):
-        return f'{self.usuario} - {self.emocao} - {self.data}'
+        return f'{self.usuario}, {self.emocao}, {self.data}, {self.intensidade}, {self.descricao}'
 
+class Emocao(models.Model):
+    nome = models.CharField(max_length=100)
+    data = models.DateField()
+    intensidade = models.IntegerField()
 
+    def __str__(self):
+        return self.nome
+    
 class IntegracaoDiarioPessoal(models.Model):
     id_anotacao = models.CharField(max_length=100, verbose_name="ID da anotação")
     id_usuario = models.CharField(max_length=100, verbose_name="ID do usuário")

@@ -7,3 +7,5 @@ admin.site.register(IntegracaoDiarioPessoal)
 admin.site.register(Personalizacao)
 admin.site.register(SugestaoAtividades)
 admin.site.register(CompartilhamentoProgresso)  # Corrija o nome aqui
+class EmocaoAdmin(admin.ModelAdmin):
+    list_display = ('id', 'nome', 'data', 'intensidade')
