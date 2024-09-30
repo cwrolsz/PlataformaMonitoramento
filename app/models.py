@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class AnalisePadroesEmocionais(models.Model):
     id_relatorio = models.CharField(max_length=100, verbose_name="ID do relatório")
@@ -14,17 +15,13 @@ class AnalisePadroesEmocionais(models.Model):
         verbose_name = "Análise de Padrões Emocionais"
 
 
-from django.db import models
-
 class RegistroEmocao(models.Model):
-    usuario = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    emocao = models.CharField(max_length=100)
-    data = models.DateTimeField(auto_now_add=True)
-    intensidade = models.IntegerField()
-    descricao = models.TextField()
+    nome = models.CharField(max_length=100)
+    data = models.DateField()
+    intensidade = models.PositiveIntegerField()
 
     def __str__(self):
-        return f'{self.usuario}, {self.emocao}, {self.data}, {self.intensidade}, {self.descricao}'
+        return self.nome
 
 class Emocao(models.Model):
     nome = models.CharField(max_length=100)
@@ -49,16 +46,13 @@ class IntegracaoDiarioPessoal(models.Model):
 
 
 class Personalizacao(models.Model):
-    id_usuario = models.CharField(max_length=100, verbose_name="ID do usuário")
-    nome_usuario = models.CharField(max_length=100, verbose_name="Nome")
-    idade = models.CharField(max_length=100, verbose_name="Idade")
-    sexo = models.CharField(max_length=100, verbose_name="sexo")
+    id_personalizacao= models.AutoField(primary_key=True)
+    Nome = models.ForeignKey(User, on_delete=models.CASCADE)
+    Email = models.CharField(max_length=100)
+    Senha = models.CharField(max_length=100)
 
     def __str__(self):
-        return f"{self.id_usuario}, {self.nome_usuario}, {self.idade}, {self.sexo}"
-
-    class Meta:
-        verbose_name = "Personalização"
+        return f"{self.Nome.username} - Personalização"
 
 
 class SugestaoAtividades(models.Model):
@@ -74,9 +68,8 @@ class SugestaoAtividades(models.Model):
         verbose_name = "Sugestção de atividade"
         verbose_name_plural = "Sugestões de atividades"
 
-class CompartilhamentoProgresso(models.Model):  # Corrija o nome aqui
-    progresso = models.TextField()
-    data = models.DateField()
+class CompartilhamentoProgresso(models.Model):
+    link = models.URLField(max_length=200)  # Campo para armazenar o link
 
     def __str__(self):
-        return f'Progresso: {self.progresso}'
+        return self.link

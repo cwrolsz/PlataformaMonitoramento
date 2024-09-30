@@ -1,14 +1,121 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
-    <title>Compartilhamento de Progresso</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compartilhar Progresso</title>
+    <style>
+        /* styles.css */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        .header {
+            text-align: center;
+            margin: 20px;
+        }
+
+        .container {
+            width: 50%;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="url"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%; /* Para que o botão preencha a largura do contêiner */
+            margin-top: 10px; /* Espaço acima do botão */
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .messages {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .messages li {
+            margin: 10px 0;
+            color: red;  /* Altere a cor conforme necessário */
+        }
+
+        .btn-home {
+            padding: 10px 20px;
+            background-color: #00c8ff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+            display: inline-block; /* Para que o botão tenha um comportamento de bloco */
+            margin: 20px auto; /* Centraliza o botão e adiciona espaço em cima e embaixo */
+        }
+
+        .btn-home:hover {
+            background-color: #fa9ceb;
+        }
+        footer {
+            text-align: center; /* Centraliza o texto no footer */
+            margin-top: 20px; /* Adiciona uma margem acima do footer para espaço */
+            position: absolute; /* Define o footer como absoluto */
+            bottom: 0; /* Coloca o footer na parte inferior da página */
+            width: 100%; /* Faz com que o footer ocupe toda a largura da página */
+            background-color: #d1fece; /* Adiciona uma cor de fundo para o footer */
+            padding: 10px 0; /* Adiciona espaçamento em cima e embaixo do conteúdo do footer */
+        }
+    </style>
 </head>
 <body>
-    <h1>Compartilhamento de Progresso</h1>
-    <ul>
-        {% for compartilhamento in compartilhamentos %}
-            <li>{{ compartilhamento }}</li>
-        {% endfor %}
-    </ul>
+    <header>
+        <h1>Compartilhar Progresso</h1>
+    </header>
+
+    <div class="container">
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+            <label for="link_compartilhamento">Cole o link aqui:</label>
+            <input type="url" id="link_compartilhamento" name="link_compartilhamento" placeholder="https://exemplo.com" required>
+            <button type="submit">Compartilhar Progresso</button>
+        </form>
+    </div>
+
+    <!-- Botão fora do formulário e na parte inferior -->
+    <div class="btn-home-container" style="text-align: center;">
+        <a href="{% url 'home' %}" class="btn-home">Voltar para página inicial</a>
+    </div>
+    
+    <footer>
+        <p>&copy; 2024 Plataforma de Monitoramento de Emoções. Todos os direitos reservados.</p>
+    </footer>
 </body>
 </html>

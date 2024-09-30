@@ -1,14 +1,139 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
-    <title>Sugestão de Atividades</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sugestão de Atividade</title>
+<style>
+    /* Estilos globais */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    text-align: center;
+}
+
+/* Cabeçalho */
+header {
+    background-color: #9f6ef4;
+    color: white;
+    padding: 20px 0;
+}
+
+h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+/* Seção de sugestões */
+.activity-suggestions {
+    margin: 20px auto;
+    width: 80%;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+thead {
+    background-color: #c0a2f3;
+    color: white;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+@media (max-width: 600px) {
+    table {
+        width: 100%;
+    }
+
+    th, td {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+}
+.btn-home-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px; /* Ajusta a distância entre o botão "Voltar" e os outros botões */
+        }
+
+        .btn-home {
+            background-color: #00c8ff;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-size: 12px;
+            cursor: pointer;
+            padding: 10px 20px;
+            border-radius: 4px;
+            width: 100%; 
+            max-width: 150px;
+        }
+
+        .btn-home:hover {
+            background-color: #ffd000;
+        }
+        
+        footer {
+    text-align: center; /* Centraliza o texto no footer */
+    margin-top: 20px; /* Adiciona uma margem acima do footer para espaço */
+    position: absolute; /* Define o footer como absoluto */
+    bottom: 0; /* Coloca o footer na parte inferior da página */
+    width: 100%; /* Faz com que o footer ocupe toda a largura da página */
+    background-color: #caacfe; /* Adiciona uma cor de fundo para o footer */
+    padding: 10px 0; /* Adiciona espaçamento em cima e embaixo do conteúdo do footer */
+}
+</style>
 </head>
 <body>
-    <h1>Sugestão de Atividades</h1>
-    <ul>
-        {% for sugestao in sugestoes %}
-            <li>{{ sugestao }}</li>
-        {% endfor %}
-    </ul>
+    <header>
+        <h1>Sugestões de Atividades</h1>
+    </header>
+    
+    <section class="activity-suggestions">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID da Atividade</th>
+                    <th>Sugestão</th>
+                    <th>Descrição</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Caminhada ao ar livre</td>
+                    <td>Uma caminhada de 30 minutos pode ajudar a relaxar e clarear a mente.</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Meditação</td>
+                    <td>Praticar 10 minutos de meditação guiada pode reduzir a ansiedade.</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Escrever em um diário</td>
+                    <td>Registrar os sentimentos pode ajudar a processar emoções difíceis.</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="btn-home-container">
+            <a href="{% url 'home' %}" class="btn-home">Voltar para página inicial</a>
+        </div>
+    </section>
+    <footer>
+        <p>&copy; 2024 Plataforma de Monitoramento de Emoções. Todos os direitos reservados.</p>
+    </footer>
 </body>
 </html>

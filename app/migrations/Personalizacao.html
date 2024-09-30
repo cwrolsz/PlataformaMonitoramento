@@ -27,8 +27,27 @@
     </nav>
 
     <div class="container mt-5">
-        <h2 class="mb-4">Personalização</h2>
-        <p>Conteúdo de personalização aqui.</p>
+        <h2 class="mb-4">Personalizacao</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Senha</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for personalizacao in personalizacao %}
+                    <tr>
+                        <th><strong>{{ Personalizacao.id }}</strong></th>
+                        <th>{{ Personalizacao.nome }}</th>
+                        <th>{{ Personalizacao.email }}</th>
+                        <th>{{ Personalizacao.senha }}</th>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 
     <!-- Incluindo jQuery e Bootstrap JS -->

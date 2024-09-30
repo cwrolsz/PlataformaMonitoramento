@@ -92,25 +92,27 @@
 
 <body>
     <header>
-        <h1>Plataforma de Monitoramento de Emoções</h1> <!-- Nome da plataforma -->
+        <h1>Plataforma de Monitoramento de Emoções</h1> 
     </header>
     <div class="itens">
         <div class="row">
             <div class="navg">
                 <div>
                     <a class="requisito" href="/criar_registro_emocao/">Criar Registro de Emoção</a>
-                    <a class="requisito" href="/visualizar_registros/">Visualizar Registros</a>
-                    <a class="requisito" href="/analise_padroes/">Análise de Padrões Emocionais</a>
+                    <a class="requisito" href="/listar_registros_emocao/">Lista de Emoções Registradas</a>
+                    <a class="requisito" href="/integracao_diario_pessoal/">Diário Pessoal</a>
                 </div>
                 <div>
                     <a class="requisito" href="/sugestao_atividades/">Sugestões de Atividades</a>
                     <a class="requisito" href="/personalizacao/">Personalização</a>
-                    <a class="requisito" href="/diario_pessoal/">Diário Pessoal</a>
+                    <p>Bem-vindo, {{ user.username }}!</p>
+
                 </div>
                 <div>
-                    <a class="requisito" href="/compartilhar_progresso/">Compartilhar Progresso</a>
-                    <a class="requisito" href="/feedback/">Feedback</a>
+                    <a class="requisito" href="/compartilhamento_progresso/">Compartilhar Progresso</a>
+                    <a class="requisito" href="/analise_padroes_emocionais/">Análise de Padrões Emocionais</a>
                     <a class="requisito" href="/admin/">Administração</a>
+
                 </div>
             </div>
         </div>

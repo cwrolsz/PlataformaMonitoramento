@@ -40,23 +40,13 @@
         }
 
         input[type="text"],
-        input[type="email"] {
+        input[type="email"],
+        textarea {
             width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
             box-sizing: border-box;
-        }
-
-        input[type="email"].invalid {
-            border-color: #ff4d4d;
-        }
-
-        .error-message {
-            display: none;
-            color: #ff4d4d;
-            font-size: 12px;
-            margin-top: 5px;
         }
 
         .form-actions {
@@ -84,36 +74,69 @@
             color: #fff;
         }
 
-        .status-icons {
-            display: flex;
-            justify-content: space-between;
+        .resultado {
+            background-color: #e0ffe0; /* Cor de fundo suave */
+            border: 1px solid #4caf50; /* Borda verde */
+            padding: 15px; /* Espaçamento interno */
+            border-radius: 8px; /* Cantos arredondados */
+            margin-top: 20px; /* Espaço acima da seção */
+            display: none; /* Inicialmente escondido */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra para profundidade */
+        }
+
+        .resultado h3 {
+            color: #4caf50; /* Cor do título */
+            margin-bottom: 10px; /* Margem abaixo do título */
+        }
+
+        .resultado p {
+            color: #333; /* Cor do texto */
+            font-size: 16px; /* Tamanho da fonte */
+            line-height: 1.5; /* Espaçamento entre linhas */
+        }
+
+        .text-center {
+    text-align: center; /* Centraliza o texto dentro do contêiner */
+    margin-top: 20px; /* Espaçamento superior */
+}
+
+.btn-home {
+    padding: 10px 20px;
+    background-color: #00c8ff; /* Cor de fundo do botão */
+    color: white; /* Cor do texto do botão */
+    border: none;
+    border-radius: 4px;
+    text-decoration: none; /* Remove sublinhado */
+    font-size: 16px; /* Tamanho da fonte */
+    cursor: pointer; /* Muda o cursor ao passar sobre o botão */
+}
+
+.btn-home:hover {
+    background-color: #fa9ceb; /* Cor de fundo ao passar o mouse */
+}
+
+
+        footer {
+            text-align: center;
             margin-top: 20px;
-            font-size: 24px;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background-color: #ffd1f7;
+            padding: 10px 0;
         }
 
-        .error-icon {
-            color: #ff4d4d;
-        }
-
-        .success-icon {
-            color: #4caf50;
-        }
-
-        .btn-home {
-            margin-top: 20px;
-            padding: 7px 10px;
-            background-color: #00c8ff;
+        .btn-excluir {
+            background-color: #ff4d4d; /* Cor vermelha para o botão de excluir */
             color: white;
             border: none;
             border-radius: 4px;
-            text-align: center;
-            text-decoration: none;
-            font-size: 16px;
             cursor: pointer;
+            padding: 5px 10px;
         }
 
-        .btn-home:hover {
-            background-color: #fa9ceb;
+        .btn-excluir:hover {
+            background-color: #ff1a1a; /* Escurece a cor ao passar o mouse */
         }
     </style>
 </head>
@@ -127,25 +150,108 @@
             </div>
             <div class="form-group">
                 <label for="data_inicio">Data de Início</label>
-                <input type="date" id="data_inicio" name="data_inicio" class="form-control" required>
+                <input type="date" id="data_inicio" name="data_inicio" required>
             </div>            
             <div class="form-group">
                 <label for="data_termino">Data de término</label>
-                <input type="date" id="data_termino" name="data_termino" class="form-control" required>
+                <input type="date" id="data_termino" name="data_termino" required>
             </div>
             <div class="form-group">
                 <label for="resumo_emocional">Resumo Emocional</label>
-                <textarea id="resumo_emocional" name="resumo_emocional" class="form-control" rows="5" placeholder="Digite o resumo emocional aqui..." required></textarea>
+                <textarea id="resumo_emocional" name="resumo_emocional" rows="5" placeholder="Digite o resumo emocional aqui..." required></textarea>
             </div>            
             <div class="form-actions">
                 <button type="button" class="btn cancelar">Cancelar</button>
                 <button type="submit" class="btn cadastrar">Adicionar</button>
             </div>
         </form>
-    </div>
-        <div class=" text-center">
-            <a href="{% url 'home' %}" class="btn-home">Voltar para página inical</a>
+
+        <!-- Seção de Resultados -->
+        <div class="resultado" id="resultado-analisado">
+            <h3>Análises Salvas</h3>
         </div>
+        <div class="text-center">
+            <a href="{% url 'home' %}" class="btn-home">Voltar para página inicial</a>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Monitoramento de Emoções</p>
+    </footer>
+
+    <script>
+        // Carrega as análises salvas ao abrir a página
+        document.addEventListener('DOMContentLoaded', function() {
+            const analisesSalvas = JSON.parse(localStorage.getItem('analisesEmocionais')) || [];
+            exibirAnalises(analisesSalvas);
+        });
+
+        document.getElementById('personalizacao-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Impede o envio do formulário para processar a análise
+            // Coletar os dados do formulário
+            const nome = document.getElementById('nome').value;
+            const dataInicio = document.getElementById('data_inicio').value;
+            const dataTermino = document.getElementById('data_termino').value;
+            const resumoEmocional = document.getElementById('resumo_emocional').value;
+
+            // Realizar a análise (exemplo fictício)
+            const analiseResultado = `Análise de ${nome}: 
+                A análise foi realizada entre ${dataInicio} e ${dataTermino}. 
+                Resumo: ${resumoEmocional}`;
+
+            // Recuperar as análises salvas e adicionar a nova análise
+            const analisesSalvas = JSON.parse(localStorage.getItem('analisesEmocionais')) || [];
+            analisesSalvas.push(analiseResultado);
+            
+            // Salvar o array de análises no localStorage
+            localStorage.setItem('analisesEmocionais', JSON.stringify(analisesSalvas));
+
+            // Exibir as análises na página
+            exibirAnalises(analisesSalvas);
+        });
+
+        // Função para exibir as análises salvas
+        function exibirAnalises(analises) {
+            const resultadoContainer = document.getElementById('resultado-analisado');
+            resultadoContainer.innerHTML = ''; // Limpar conteúdo anterior
+
+            analises.forEach((analise, index) => {
+                const analiseElemento = document.createElement('div');
+                analiseElemento.style.display = 'flex'; // Flex para alinhar os elementos
+                analiseElemento.style.justifyContent = 'space-between'; // Espaço entre os itens
+                analiseElemento.style.alignItems = 'center'; // Alinhamento vertical
+
+                const analiseTexto = document.createElement('p');
+                analiseTexto.innerText = analise;
+                analiseElemento.appendChild(analiseTexto);
+
+                // Criar botão de excluir
+                const excluirBtn = document.createElement('button');
+                excluirBtn.innerText = 'Excluir';
+                excluirBtn.style.marginLeft = '10px';
+                excluirBtn.classList.add('btn-excluir'); // Classe para estilo
+                excluirBtn.onclick = function() {
+                    excluirAnalise(index);
+                };
+
+                analiseElemento.appendChild(excluirBtn);
+                resultadoContainer.appendChild(analiseElemento);
+            });
+
+            resultadoContainer.style.display = 'block'; // Exibe a seção
+        }
+
+        // Função para excluir uma análise
+        function excluirAnalise(index) {
+            const analisesSalvas = JSON.parse(localStorage.getItem('analisesEmocionais')) || [];
+            analisesSalvas.splice(index, 1); // Remove a análise pelo índice
+
+            // Salvar o array atualizado no localStorage
+            localStorage.setItem('analisesEmocionais', JSON.stringify(analisesSalvas));
+
+            // Exibir as análises atualizadas
+            exibirAnalises(analisesSalvas);
+        }
+        
+    </script>
 </body>
 </html>
-
