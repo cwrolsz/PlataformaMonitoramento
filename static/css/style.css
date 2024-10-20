@@ -1,0 +1,88 @@
+/* Estilo para o cabeçalho */
+header {
+    background-color: #c27dea;
+    padding: 20px;
+    text-align: center;
+    color: #fff;
+}
+
+header h1 {
+    margin: 0;
+}
+
+/* Estilo para o menu */
+nav {
+    margin: 20px 0;
+}
+
+.menu {
+    list-style-type: none;
+    padding: 0;
+    text-align: center;
+}
+
+.menu-item {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+.menu-item a {
+    text-decoration: none;
+    color: #e8c0ff;
+    padding: 10px 20px;
+    border: 2px solid #e9b2d098;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.menu-item a:hover {
+    background-color: #e3b2ff;
+    color: white;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7ebff;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.requirements {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.requirement-item {
+    width: 22%;
+    background-color: #f0e5ff;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: left;
+}
+
+.requirement-item h2 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.requirement-item:hover {
+    background-color: #e0d4ff;
+}

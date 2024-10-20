@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Registro de Emoção - Monitoramento de Emoções</title>
+    <style>
+ body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+.container {
+            background-color: #edd5fc;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+.form-group {
+            margin-bottom: 15px;
+        }
+
+label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+input[type="text"],
+input[type="email"],
+textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+.form-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+.btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+.cancelar {
+            background-color: #91bef8;
+            color: #ffffff;
+        }
+
+.cadastrar {
+            background-color: #91bef8;
+            color: #fff;
+        }
+
+.resultado {
+            background-color: #e9fbe9; /* Cor de fundo suave */
+            border: 1px solid #e9ffea; /* Borda verde */
+            padding: 15px; /* Espaçamento interno */
+            border-radius: 8px; /* Cantos arredondados */
+            margin-top: 20px; /* Espaço acima da seção */
+            display: none; /* Inicialmente escondido */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra para profundidade */
+        }
+
+.resultado h3 {
+            color: #ffffff; /* Cor do título */
+            margin-bottom: 10px; /* Margem abaixo do título */
+        }
+
+.resultado p {
+            color: #333; /* Cor do texto */
+            font-size: 16px; /* Tamanho da fonte */
+            line-height: 1.5; /* Espaçamento entre linhas */
+        }
+
+.text-center {
+    text-align: center; /* Centraliza o texto dentro do contêiner */
+    margin-top: 20px; /* Espaçamento superior */
+}
+
+.btn-home {
+    padding: 10px 20px;
+    background-color: #00c8ff; /* Cor de fundo do botão */
+    color: white; /* Cor do texto do botão */
+    border: none;
+    border-radius: 4px;
+    text-decoration: none; /* Remove sublinhado */
+    font-size: 16px; /* Tamanho da fonte */
+    cursor: pointer; /* Muda o cursor ao passar sobre o botão */
+}
+
+.btn-home:hover {
+    background-color: #fa9ceb; /* Cor de fundo ao passar o mouse */
+}
+
+
+.btn-excluir {
+    background-color: #ff4d4d; /* Cor vermelha para o botão de excluir */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 5px 10px;
+        }
+
+.btn-excluir:hover {
+    background-color: #ff1a1a; /* Escurece a cor ao passar o mouse */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Ánalise de padrões emocionais</h2>
+        <form id="personalizacao-form">
+            <div class="form-group">
+                <label for="nome_completo">Nome</label>
+                <input type="text" id="nome" name="nome" required>
+            </div>
+            <div class="form-group">
+                <label for="data_inicio">Data de Início</label>
+                <input type="date" id="data_inicio" name="data_inicio" required>
+            </div>            
+            <div class="form-group">
+                <label for="data_termino">Data de término</label>
+                <input type="date" id="data_termino" name="data_termino" required>
+            </div>
+            <div class="form-group">
+                <label for="resumo_emocional">Resumo Emocional</label>
+                <textarea id="resumo_emocional" name="resumo_emocional" rows="5" placeholder="Digite o resumo emocional aqui..." required></textarea>
+            </div>            
+            <div class="form-actions">
+                <button type="button" class="btn cancelar">Cancelar</button>
+                <button type="submit" class="btn cadastrar">Adicionar</button>
+            </div>
+        </form>
+
+        <!-- Seção de Resultados -->
+        <div class="resultado" id="resultado-analisado">
+            <h3>Análises Salvas</h3>
+        </div>
+        <div class="text-center">
+            <a href="{% url 'home' %}" class="btn-home">Voltar para página inicial</a>
+        </div>
+    </div>
+    <script>
+        // Carrega as análises salvas ao abrir a página
+        document.addEventListener('DOMContentLoaded', function() {
+            const analisesSalvas = JSON.parse(localStorage.getItem('analisesEmocionais')) || [];
+            exibirAnalises(analisesSalvas);
+        });
+
+        document.getElementById('personalizacao-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Impede o envio do formulário para processar a análise
+            // Coletar os dados do formulário
+            const nome = document.getElementById('nome').value;
+            const dataInicio = document.getElementById('data_inicio').value;
+            const dataTermino = document.getElementById('data_termino').value;
+            const resumoEmocional = document.getElementById('resumo_emocional').value;
+
+            // Realizar a análise (exemplo fictício)
+            const analiseResultado = `Análise de ${nome}: 
+                A análise foi realizada entre ${dataInicio} e ${dataTermino}. 
+                Resumo: ${resumoEmocional}`;
+
+            // Recuperar as análises salvas e adicionar a nova análise
+            const analisesSalvas = JSON.parse(localStorage.getItem('analisesEmocionais')) || [];
+            analisesSalvas.push(analiseResultado);
+            
+            // Salvar o array de análises no localStorage
+            localStorage.setItem('analisesEmocionais', JSON.stringify(analisesSalvas));
+
+            // Exibir as análises na página
+            exibirAnalises(analisesSalvas);
+        });
+
+        // Função para exibir as análises salvas
+        function exibirAnalises(analises) {
+            const resultadoContainer = document.getElementById('resultado-analisado');
+            resultadoContainer.innerHTML = ''; // Limpar conteúdo anterior
+
+            analises.forEach((analise, index) => {
+                const analiseElemento = document.createElement('div');
+                analiseElemento.style.display = 'flex'; // Flex para alinhar os elementos
+                analiseElemento.style.justifyContent = 'space-between'; // Espaço entre os itens
+                analiseElemento.style.alignItems = 'center'; // Alinhamento vertical
+
+                const analiseTexto = document.createElement('p');
+                analiseTexto.innerText = analise;
+                analiseElemento.appendChild(analiseTexto);
+
+                // Criar botão de excluir
+                const excluirBtn = document.createElement('button');
+                excluirBtn.innerText = 'Excluir';
+                excluirBtn.style.marginLeft = '10px';
+                excluirBtn.classList.add('btn-excluir'); // Classe para estilo
+                excluirBtn.onclick = function() {
+                    excluirAnalise(index);
+                };
+
+                analiseElemento.appendChild(excluirBtn);
+                resultadoContainer.appendChild(analiseElemento);
+            });
+
+            resultadoContainer.style.display = 'block'; // Exibe a seção
+        }
+
+        // Função para excluir uma análise
+        function excluirAnalise(index) {
+            const analisesSalvas = JSON.parse(localStorage.getItem('analisesEmocionais')) || [];
+            analisesSalvas.splice(index, 1); // Remove a análise pelo índice
+
+            // Salvar o array atualizado no localStorage
+            localStorage.setItem('analisesEmocionais', JSON.stringify(analisesSalvas));
+
+            // Exibir as análises atualizadas
+            exibirAnalises(analisesSalvas);
+        }
+        
+    </script>
+</body>
+</html>

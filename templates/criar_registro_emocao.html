@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Registro de Emoção - Monitoramento de Emoções</title>
+    <style>
+    body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column; /* Permite que o footer seja empurrado para o fundo */
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            position: relative; /* Necessário para que o footer fique na parte inferior */
+        }
+
+        .container {
+            background-color: #d5cefe;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 20px; /* Para que o footer não fique colado na parte inferior do container */
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            flex: 1;
+            margin: 0 5px;
+        }
+
+
+
+        .btn-home-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px; /* Ajusta a distância entre o botão "Voltar" e os outros botões */
+        }
+
+        .btn-home {
+            background-color: #00c8ff;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-size: 12px;
+            cursor: pointer;
+            padding: 10px 20px;
+            border-radius: 4px;
+            width: 100%; 
+            max-width: 150px;
+        }
+
+        .btn-home:hover {
+            background-color: #fa9ceb;
+        }
+
+        footer {
+            text-align: center; /* Centraliza o texto no footer */
+            margin-top: 20px; /* Adiciona uma margem acima do footer para espaço */
+            position: absolute; /* Define o footer como absoluto */
+            bottom: 0; /* Coloca o footer na parte inferior da página */
+            width: 100%; /* Faz com que o footer ocupe toda a largura da página */
+            background-color: #e7cefe; /* Adiciona uma cor de fundo para o footer */
+            padding: 10px 0; /* Adiciona espaçamento em cima e embaixo do conteúdo do footer */
+        }
+        </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Criar Registro de Emoção</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required>
+        
+            <label for="emocao">Emoção:</label>
+            <input type="text" id="emocao" name="emocao" required>
+            
+            <label for="data">Data:</label>
+            <input type="date" id="data" name="data" required>
+        
+            <label for="intensidade">Intensidade:</label>
+            <input type="text" id="intensidade" name="intensidade" required>
+        
+            <label for="descricao">Descrição:</label>
+            <textarea id="descricao" name="descricao" required></textarea>
+        
+            <button type="submit">Adicionar Registro</button>
+        </form>
+    </div>
+    <div class="text-center">
+        <a href="{% url 'home' %}" class="btn-home">Voltar para página inicial</a>
+    </div>
+    <footer>
+        <p>&copy; 2024 Plataforma de Monitoramento de Emoções. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>
