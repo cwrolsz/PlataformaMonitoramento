@@ -1,0 +1,172 @@
+{% block content %}
+<style>
+    /* Estilos gerais */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        margin: 0;
+        padding: 20px;
+    }
+
+    .container {
+        background-color: #edd5fc;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 600px;
+        margin: auto; /* Centraliza o container */
+    }
+
+    h2 {
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    form {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+
+    button {
+        background-color: #4CAF50; /* Cor verde */
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #45a049; /* Verde mais escuro ao passar o mouse */
+    }
+
+    /* Estilos para a lista de feedback */
+    #feedback-list {
+        margin-top: 20px;
+    }
+
+    .feedback-item {
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        margin: 10px 0;
+        display: flex; /* Flexbox para alinhar os itens */
+        justify-content: space-between; /* Espaço entre o texto e o botão */
+    }
+
+    .text-center {
+        text-align: center; /* Centraliza o texto dentro do contêiner */
+        margin-top: 20px; /* Espaçamento superior */
+    }
+
+    .btn-home {
+        padding: 10px 15px;
+        background-color: #2196F3;
+        text-align: center;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+
+    .btn-home:hover {
+        background-color: #fa9ceb;
+    }
+
+    .btn-excluir {
+        background-color: #f44336; /* Cor vermelha */
+        border: none;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .btn-excluir:hover {
+        background-color: #d32f2f; /* Vermelho mais escuro ao passar o mouse */
+    }
+</style>
+
+<div class="container">
+    <h2>Feedback</h2>
+    <form id="feedback-form">
+        {% csrf_token %}
+        <label for="descricao">Seu Feedback:</label>
+        <input type="text" id="descricao" name="descricao" required>
+        <button type="submit">Enviar Feedback</button>
+    </form>
+
+    <div id="feedback-list"></div> <!-- Lista de feedback -->
+
+    <div class="text-center">
+        <a href="{% url 'home' %}" class="btn-home">Voltar para página inicial</a>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const feedbackList = document.getElementById('feedback-list');
+        const feedbacksSalvos = JSON.parse(localStorage.getItem('feedbacks')) || [];
+        exibirFeedbacks(feedbacksSalvos);
+
+        document.getElementById('feedback-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Impede o envio do formulário
+
+            const descricao = document.getElementById('descricao').value;
+
+            // Adiciona o novo feedback ao array
+            feedbacksSalvos.push(descricao);
+            localStorage.setItem('feedbacks', JSON.stringify(feedbacksSalvos));
+
+            // Exibe os feedbacks na página
+            exibirFeedbacks(feedbacksSalvos);
+
+            // Limpa o campo de entrada
+            document.getElementById('descricao').value = '';
+        });
+                
+        function exibirFeedbacks(feedbacks) {
+            feedbackList.innerHTML = ''; // Limpa a lista anterior
+            feedbacks.forEach((feedback, index) => {
+                const div = document.createElement('div');
+                div.className = 'feedback-item';
+                div.innerText = feedback;
+
+                // Cria um botão de excluir
+                const btnExcluir = document.createElement('button');
+                btnExcluir.innerText = 'Excluir';
+                btnExcluir.className = 'btn-excluir';
+                btnExcluir.addEventListener('click', function() {
+                    // Remove o feedback do array
+                    feedbacksSalvos.splice(index, 1);
+                    localStorage.setItem('feedbacks', JSON.stringify(feedbacksSalvos));
+                    exibirFeedbacks(feedbacksSalvos); // Atualiza a exibição
+                });
+
+                // Adiciona o botão de excluir ao feedback
+                div.appendChild(btnExcluir);
+                feedbackList.appendChild(div);
+            });
+        }
+    });
+</script>
+{% endblock %}

@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background-color: #ffffff;
             margin: 0;
             padding: 20px;
         }
@@ -41,7 +41,7 @@
         textarea {
             width: 100%;
             padding: 10px;
-            border: 1px solid #ccc;
+            border: 1px solid #dfdcf5;
             border-radius: 5px;
         }
 
@@ -57,12 +57,12 @@
         }
 
         .btn.cadastrar {
-            background-color: #4CAF50;
+            background-color: #9acc9b;
             color: white;
         }
 
         .btn.cancelar {
-            background-color: #f44336;
+            background-color: #fa9b95;
             color: white;
             margin-right: 10px;
         }
@@ -80,7 +80,7 @@
         }
 
         th {
-            background-color: #f2f2f2;
+            background-color: #d5cefe;
         }
 
         .text-center {
@@ -96,59 +96,23 @@
             border-radius: 5px;
             text-decoration: none;
         }
+        
+        .btn-home:hover {
+            background-color: #fa9ceb;
+        }
 
         footer {
-            margin-top: 30px;
             text-align: center;
-            font-size: 0.9em;
-            color: #777;
+            margin-top: 20px; 
+            position: absolute;
+            bottom: 0; 
+            width: 100%; 
+            background-color: #e7cefe;
+            padding: 10px 0; 
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Análise de Padrões Emocionais</h2>
-        <form id="analise-form">
-            <div class="form-group">
-                <label for="nome_analise">Nome</label>
-                <input type="text" id="nome_analise" name="nome_analise" required>
-            </div>
-            <div class="form-group">
-                <label for="data_inicio_analise">Data de Início</label>
-                <input type="date" id="data_inicio_analise" name="data_inicio_analise" required>
-            </div>
-            <div class="form-group">
-                <label for="data_termino_analise">Data de Término</label>
-                <input type="date" id="data_termino_analise" name="data_termino_analise" required>
-            </div>
-            <div class="form-group">
-                <label for="resumo_emocional">Resumo Emocional</label>
-                <textarea id="resumo_emocional" name="resumo_emocional" rows="5" required placeholder="Digite o resumo emocional aqui..."></textarea>
-            </div>
-            <div class="form-actions">
-                <button type="button" class="btn cancelar">Cancelar</button>
-                <button type="submit" class="btn cadastrar">Adicionar</button>
-            </div>
-        </form>
-
-        <div id="resultado-analises">
-            <h3>Análises Salvas</h3>
-            <table id="tabela-analises">
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Data de Início</th>
-                        <th>Data de Término</th>
-                        <th>Resumo Emocional</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Análises serão inseridas aqui -->
-                </tbody>
-            </table>
-        </div>
-
         <h2>Diário Pessoal</h2>
         <form id="diario-form">
             <div class="form-group">
@@ -193,34 +157,8 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const analiseForm = document.getElementById('analise-form');
             const diarioForm = document.getElementById('diario-form');
-            const tabelaAnalises = document.getElementById('tabela-analises').getElementsByTagName('tbody')[0];
             const tabelaDiario = document.getElementById('tabela-diario').getElementsByTagName('tbody')[0];
-
-            // Adicionar Análise
-            analiseForm.addEventListener('submit', function (event) {
-                event.preventDefault();
-                const nome = document.getElementById('nome_analise').value;
-                const dataInicio = document.getElementById('data_inicio_analise').value;
-                const dataTermino = document.getElementById('data_termino_analise').value;
-                const resumo = document.getElementById('resumo_emocional').value;
-
-                const row = tabelaAnalises.insertRow();
-                row.innerHTML = `
-                    <td>${nome}</td>
-                    <td>${dataInicio}</td>
-                    <td>${dataTermino}</td>
-                    <td>${resumo}</td>
-                    <td><button class="btn-excluir">Excluir</button></td>
-                `;
-
-                row.querySelector('.btn-excluir').addEventListener('click', function () {
-                    tabelaAnalises.deleteRow(row.rowIndex - 1);
-                });
-
-                analiseForm.reset();
-            });
 
             // Adicionar Entrada do Diário
             diarioForm.addEventListener('submit', function (event) {

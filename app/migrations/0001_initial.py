@@ -53,10 +53,9 @@ class Migration(migrations.Migration):
             name='Personalizacao',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('id_usuario', models.CharField(max_length=100, verbose_name='ID do usuário')),
                 ('nome_usuario', models.CharField(max_length=100, verbose_name='Nome')),
-                ('idade', models.CharField(max_length=100, verbose_name='Idade')),
-                ('sexo', models.CharField(max_length=100, verbose_name='sexo')),
+                ('email', models.CharField(max_length=100, verbose_name='email')),
+                ('senha', models.CharField(max_length=100, verbose_name='senha')),
             ],
         ),
         migrations.CreateModel(

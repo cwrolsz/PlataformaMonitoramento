@@ -10,8 +10,13 @@
             font-family: Arial, sans-serif;
             background-color: #f9f9f9;
             color: #333;
+            text-align: center;
         }
-
+        header {
+               background-color: #9f6ef4;
+               color: white;
+               padding: 20px 0;
+}
         .header {
             text-align: center;
             margin: 20px;
@@ -36,7 +41,7 @@
 
         button {
             padding: 10px 20px;
-            background-color: #4CAF50;
+            background-color: #caacfe;
             color: white;
             border: none;
             border-radius: 5px;
@@ -46,7 +51,7 @@
         }
 
         button:hover {
-            background-color: #45a049;
+            background-color: #a069ff;
         }
 
         .messages {
@@ -82,7 +87,7 @@
             position: absolute; /* Define o footer como absoluto */
             bottom: 0; /* Coloca o footer na parte inferior da página */
             width: 100%; /* Faz com que o footer ocupe toda a largura da página */
-            background-color: #d1fece; /* Adiciona uma cor de fundo para o footer */
+            background-color: #e7cefe; /* Adiciona uma cor de fundo para o footer */
             padding: 10px 0; /* Adiciona espaçamento em cima e embaixo do conteúdo do footer */
         }
     </style>
@@ -93,19 +98,11 @@
     </header>
 
     <div class="container">
-        {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                    <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-
         <form method="POST">
             {% csrf_token %}
             <label for="link_compartilhamento">Cole o link aqui:</label>
             <input type="url" id="link_compartilhamento" name="link_compartilhamento" placeholder="https://exemplo.com" required>
-            <button type="submit">Compartilhar Progresso</button>
+            <button id="shareButton">Compartilhar Progresso</button>
         </form>
     </div>
 
@@ -113,7 +110,28 @@
     <div class="btn-home-container" style="text-align: center;">
         <a href="{% url 'home' %}" class="btn-home">Voltar para página inicial</a>
     </div>
-    
+
+<script>
+  const shareButton = document.getElementById('shareButton');
+
+  shareButton.addEventListener('click', async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'Progresso Emocional',
+          text: 'Confira meu progresso emocional!',
+          url: 'https://exemplo.com/seu-progresso'
+        });
+        console.log('Compartilhamento bem-sucedido!');
+      } catch (err) {
+        console.error('Erro ao compartilhar:', err);
+      }
+    } else {
+      console.log('API de compartilhamento não suportada neste dispositivo.');
+    }
+  });
+</script>
+
     <footer>
         <p>&copy; 2024 Plataforma de Monitoramento de Emoções. Todos os direitos reservados.</p>
     </footer>

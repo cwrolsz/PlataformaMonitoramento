@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Criar Registro de Emoção - Monitoramento de Emoções</title>
     <style>
-        body {
+ body {
             font-family: Arial, sans-serif;
-            background-color: #dbcfff;
+            background-color: #ffffff;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -15,8 +15,8 @@
             margin: 0;
         }
 
-        .container {
-            background-color: #ffd1f7;
+.container {
+            background-color: #edd5fc;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
@@ -24,24 +24,24 @@
             max-width: 400px;
         }
 
-        h2 {
+h2 {
             margin-bottom: 20px;
             color: #333;
         }
 
-        .form-group {
+.form-group {
             margin-bottom: 15px;
         }
 
-        label {
+label {
             display: block;
             margin-bottom: 5px;
             color: #555;
         }
 
-        input[type="text"],
-        input[type="email"],
-        textarea {
+input[type="text"],
+input[type="email"],
+textarea {
             width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
@@ -49,14 +49,14 @@
             box-sizing: border-box;
         }
 
-        .form-actions {
+.form-actions {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-top: 20px;
         }
 
-        .btn {
+.btn {
             padding: 10px 20px;
             border: none;
             border-radius: 4px;
@@ -64,19 +64,19 @@
             cursor: pointer;
         }
 
-        .cancelar {
+.cancelar {
             background-color: #91bef8;
             color: #ffffff;
         }
 
-        .cadastrar {
+.cadastrar {
             background-color: #91bef8;
             color: #fff;
         }
 
-        .resultado {
-            background-color: #e0ffe0; /* Cor de fundo suave */
-            border: 1px solid #4caf50; /* Borda verde */
+.resultado {
+            background-color: #e9fbe9; /* Cor de fundo suave */
+            border: 1px solid #e9ffea; /* Borda verde */
             padding: 15px; /* Espaçamento interno */
             border-radius: 8px; /* Cantos arredondados */
             margin-top: 20px; /* Espaço acima da seção */
@@ -84,18 +84,18 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra para profundidade */
         }
 
-        .resultado h3 {
-            color: #4caf50; /* Cor do título */
+.resultado h3 {
+            color: #ffffff; /* Cor do título */
             margin-bottom: 10px; /* Margem abaixo do título */
         }
 
-        .resultado p {
+.resultado p {
             color: #333; /* Cor do texto */
             font-size: 16px; /* Tamanho da fonte */
             line-height: 1.5; /* Espaçamento entre linhas */
         }
 
-        .text-center {
+.text-center {
     text-align: center; /* Centraliza o texto dentro do contêiner */
     margin-top: 20px; /* Espaçamento superior */
 }
@@ -116,27 +116,17 @@
 }
 
 
-        footer {
-            text-align: center;
-            margin-top: 20px;
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            background-color: #ffd1f7;
-            padding: 10px 0;
+.btn-excluir {
+    background-color: #ff4d4d; /* Cor vermelha para o botão de excluir */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 5px 10px;
         }
 
-        .btn-excluir {
-            background-color: #ff4d4d; /* Cor vermelha para o botão de excluir */
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            padding: 5px 10px;
-        }
-
-        .btn-excluir:hover {
-            background-color: #ff1a1a; /* Escurece a cor ao passar o mouse */
+.btn-excluir:hover {
+    background-color: #ff1a1a; /* Escurece a cor ao passar o mouse */
         }
     </style>
 </head>
@@ -174,10 +164,6 @@
             <a href="{% url 'home' %}" class="btn-home">Voltar para página inicial</a>
         </div>
     </div>
-    <footer>
-        <p>&copy; 2024 Monitoramento de Emoções</p>
-    </footer>
-
     <script>
         // Carrega as análises salvas ao abrir a página
         document.addEventListener('DOMContentLoaded', function() {

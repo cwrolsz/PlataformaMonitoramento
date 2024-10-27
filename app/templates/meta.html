@@ -1,0 +1,220 @@
+{% block content %}
+<style>
+    /* Geral */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        margin: 0;
+        padding: 20px;
+    }
+
+    .container {
+        background-color: #edd5fc;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 600px;
+        margin: auto; /* Centraliza o container */
+    }
+
+    h2 {
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    h3 {
+        color: #555;
+        margin-top: 30px;
+    }
+
+    /* Formulários */
+    form {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+
+    button {
+        background-color: #4CAF50; /* Cor verde */
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #45a049; /* Verde mais escuro ao passar o mouse */
+    }
+
+    /* Listas */
+    ul {
+        list-style-type: none; /* Remove marcadores de lista */
+        padding: 0;
+    }
+
+    li {
+        background-color: #fff;
+        margin: 10px 0;
+        padding: 10px;
+        border-radius: 3px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Status das Metas */
+    span {
+        font-weight: bold;
+    }
+
+    .text-center {
+        text-align: center; /* Centraliza o texto dentro do contêiner */
+        margin-top: 20px; /* Espaçamento superior */
+    }
+
+    .btn-home {
+        padding: 10px 15px;
+        background-color: #2196F3;
+        text-align: center;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+
+    .btn-home:hover {
+        background-color: #fa9ceb;
+    }
+
+    .btn-concluir, .btn-excluir {
+        background-color: #ffcc00; /* Cor amarela para o botão de concluir */
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        padding: 5px 10px;
+        margin-left: 10px; /* Espaço entre o texto e o botão */
+    }
+
+    .btn-concluir:hover {
+        background-color: #ff9900; /* Escurece a cor ao passar o mouse */
+    }
+
+    .btn-excluir {
+        background-color: #f44336; /* Cor vermelha para o botão de excluir */
+    }
+
+    .btn-excluir:hover {
+        background-color: #e53935; /* Escurece a cor ao passar o mouse */
+    }
+</style>
+
+<div class="container">
+    <h2>Metas</h2>
+    <form id="metas-form">
+        {% csrf_token %}
+        <label for="descricao">Descrição da Meta:</label>
+        <input type="text" id="descricao" name="descricao" required>
+        <button type="submit">Adicionar Meta</button>
+    </form>
+
+    <h3>Metas Anteriores</h3>
+    <ul id="lista-metas"></ul>
+
+    <div class="text-center">
+        <a href="{% url 'home' %}" class="btn-home">Voltar para página inicial</a>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const listaMetas = document.getElementById('lista-metas');
+
+        // Carrega as metas salvas ao abrir a página
+        const metasSalvas = JSON.parse(localStorage.getItem('metas')) || [];
+        exibirMetas(metasSalvas);
+
+        document.getElementById('metas-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Impede o envio do formulário
+
+            const descricao = document.getElementById('descricao').value;
+
+            // Cria um objeto para a nova meta
+            const novaMeta = {
+                descricao: descricao,
+                concluida: false // Pendente por padrão
+            };
+
+            // Adiciona a nova meta ao array
+            metasSalvas.push(novaMeta);
+            localStorage.setItem('metas', JSON.stringify(metasSalvas));
+
+            // Exibe as metas na página
+            exibirMetas(metasSalvas);
+
+            // Limpa o campo de entrada
+            document.getElementById('descricao').value = '';
+        });
+
+        function exibirMetas(metas) {
+            listaMetas.innerHTML = ''; // Limpa a lista anterior
+            metas.forEach((meta, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `${meta.descricao} - Status: 
+                    <span style="color: ${meta.concluida ? 'green' : 'red'};">
+                        ${meta.concluida ? 'Concluída' : 'Pendente'}
+                    </span>
+                    ${!meta.concluida ? `
+                        <button class="btn-concluir" onclick="concluirMeta(${index})">Concluir</button>
+                        <button class="btn-excluir" onclick="excluirMeta(${index})">Excluir</button>` : ''}`;
+                listaMetas.appendChild(li);
+            });
+        }
+
+        window.concluirMeta = function(index) {
+            const metasSalvas = JSON.parse(localStorage.getItem('metas')) || [];
+            metasSalvas[index].concluida = true; // Marca a meta como concluída
+            localStorage.setItem('metas', JSON.stringify(metasSalvas)); // Atualiza as metas salvas
+            exibirMetas(metasSalvas); // Exibe as metas atualizadas
+        };
+        function exibirMetas(metas) {
+    listaMetas.
+    
+innerHTML = ''; // Limpa a lista anterior
+    metas.forEach((meta, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `${meta.descricao} - Status: 
+            <span style="color: ${meta.concluida ? 'green' : 'red'};">
+                ${meta.concluida ? 'Concluída' : 'Pendente'}
+            </span>
+            <button class="btn-concluir" onclick="concluirMeta(${index})">Concluir</button>
+            <button class="btn-excluir" onclick="excluirMeta(${index})">Excluir</button>`;
+        listaMetas.appendChild(li);
+    });
+}
+        window.excluirMeta = function(index) {
+            const metasSalvas = JSON.parse(localStorage.getItem('metas')) || [];
+            metasSalvas.splice(index, 1); // Remove a meta pelo índice
+            localStorage.setItem('metas', JSON.stringify(metasSalvas)); // Atualiza as metas salvas
+            exibirMetas(metasSalvas); // Exibe as metas atualizadas
+        };
+    });
+    
+</script>
+{% endblock %}

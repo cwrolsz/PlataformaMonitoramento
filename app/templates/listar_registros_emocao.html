@@ -4,73 +4,93 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <title>Lista de Emoções</title>
+    <title>Lista de Registros Emocionais</title>
+    <style>
+        body {
+            background-color: #ffffff;
+        }
+        
+        .table th, .table td {
+            text-align: center;
+        }
+        .btn-home {
+            margin-top: 20px;
+            padding: 5px 10px;
+            background-color: #00c8ff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .btn-home:hover {
+            background-color: #fa9ceb;
+        }
+        .btn-excluir {
+            color: white;
+            background-color: #ff4d4d;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .btn-excluir:hover {
+            background-color: #e60000;
+        }
+        footer {
+            text-align: center; /* Centraliza o texto no footer */
+            margin-top: 20px; /* Adiciona uma margem acima do footer para espaço */
+            position: absolute; /* Define o footer como absoluto */
+            bottom: 0; /* Coloca o footer na parte inferior da página */
+            width: 100%; /* Faz com que o footer ocupe toda a largura da página */
+            background-color: #e7cefe; /* Adiciona uma cor de fundo para o footer */
+            padding: 10px 0; /* Adiciona espaçamento em cima e embaixo do conteúdo do footer */
+        }
+    </style>
 </head>
-<style>
-    body {
-        background-color: #f8f9fa;
-    }
-    .table th, .table td {
-        text-align: center;
-    }
-    .table-info {
-        background-color: #e9ecef;
-    }
-    .btn-custom {
-        background-color: #007bff;
-        color: white;
-    }
-    .btn-custom:hover {
-        background-color: #0056b3;
-    }
-    .header {
-        margin-bottom: 30px;
-    }
-    .btn-home {
-        margin-top: 20px;
-        padding: 5px 10px;
-        background-color: #00c8ff;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        text-align: center;
-        text-decoration: none;
-        font-size: 16px;
-        cursor: pointer;
-    }
-    .btn-home:hover {
-        background-color: #ffd000;
-    }
-</style>
-
 <body>
-<div class="container mt-5">
-    <h1 class="text-center">Lista de Emoções Registradas</h1>
-    <table class="table table-info">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Emoção</th>
-                <th>Data</th>
-                <th>Intensidade</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for emocao in emocoes %}
-            <tr>
-                <td><strong>{{ emocao.id }}</strong></td>
-                <td>{{ emocao.nome }}</td>
-                <td>{{ emocao.data }}</td>
-                <td>{{ emocao.intensidade }}</td>
-            </tr>
-            {% empty %}
-            
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
-<div class=" text-center">
-    <a href="{% url 'home' %}" class="btn-home">Voltar para página inical</a>
-</div>
+    <div class="container mt-5">
+        <h2 class="header text-center">Lista de Registros Emocionais</h2>
+        <table class="table table-bordered table-striped">
+            <thead class="table-info">
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Emoção</th>
+                    <th>Data</th>
+                    <th>Intensidade</th>
+                    <th>Descrição</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for registro in listar_registros_emocao %}
+                    <tr>
+                        <td>{{ registro.id }}</td>
+                        <td>{{ registro.nome }}</td>
+                        <td>{{ registro.emocao }}</td>
+                        <td>{{ registro.data }}</td>
+                        <td>{{ registro.intensidade }}</td>
+                        <td>{{ registro.descricao }}</td>
+                        <td>
+                            <a href="{% url 'excluir_registro' registro.id %}" class="btn-excluir">Excluir</a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="7">Nenhum registro encontrado.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="text-center">
+            <a href="{% url 'home' %}" class="btn btn-home">Voltar para Home</a>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Plataforma de Monitoramento de Emoções. Todos os direitos reservados.</p>
+    </footer>
 </body>
 </html>

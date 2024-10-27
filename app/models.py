@@ -1,5 +1,23 @@
-from django.db import models
-from django.contrib.auth.models import User
+from django.db import models # type: ignore
+from django.contrib.auth.models import User # type: ignore
+from django import forms # type: ignore
+
+class RegistroEmocao(models.Model):
+    nome = models.CharField(max_length=100)    
+    emocao = models.CharField(max_length=50)
+    data = models.DateField()
+    intensidade = models.CharField(max_length=10)
+    descricao = models.TextField()
+
+    def __str__(self):
+        return f"{self.emocao} - {self.intensidade}"
+
+
+class RegistroEmocaoForm(forms.ModelForm):
+    class Meta:
+        model = RegistroEmocao
+        fields = ['nome', 'emocao', 'data', 'intensidade', 'descricao']
+
 
 class AnalisePadroesEmocionais(models.Model):
     id_relatorio = models.CharField(max_length=100, verbose_name="ID do relatório")
@@ -10,18 +28,10 @@ class AnalisePadroesEmocionais(models.Model):
 
     def __str__(self):
         return f"{self.id_relatorio}, {self.id_usuario}, {self.data_inicio} - {self.data_fim}"
-    
+
     class Meta:
         verbose_name = "Análise de Padrões Emocionais"
 
-
-class RegistroEmocao(models.Model):
-    nome = models.CharField(max_length=100)
-    data = models.DateField()
-    intensidade = models.PositiveIntegerField()
-
-    def __str__(self):
-        return self.nome
 
 class Emocao(models.Model):
     nome = models.CharField(max_length=100)
@@ -30,7 +40,8 @@ class Emocao(models.Model):
 
     def __str__(self):
         return self.nome
-    
+
+
 class IntegracaoDiarioPessoal(models.Model):
     id_anotacao = models.CharField(max_length=100, verbose_name="ID da anotação")
     id_usuario = models.CharField(max_length=100, verbose_name="ID do usuário")
@@ -46,30 +57,70 @@ class IntegracaoDiarioPessoal(models.Model):
 
 
 class Personalizacao(models.Model):
-    id_personalizacao= models.AutoField(primary_key=True)
+    id_personalizacao = models.AutoField(primary_key=True)
     Nome = models.ForeignKey(User, on_delete=models.CASCADE)
-    Email = models.CharField(max_length=100)
+    email = models.EmailField(max_length=255, unique=True)
     Senha = models.CharField(max_length=100)
+    
 
     def __str__(self):
-        return f"{self.Nome.username} - Personalização"
+        return f"{self.Nome.username}, {self.email}, {self.Senha} - Personalização"
+
 
 
 class SugestaoAtividades(models.Model):
     id_atividade = models.CharField(max_length=100, verbose_name="id da atividade")
     nome_atividade = models.CharField(max_length=100, verbose_name="nome da atividade")
     descricao = models.CharField(max_length=100, verbose_name="descrição")
-    beneficios_emocionais = models.CharField(max_length=100, verbose_name="beneficios emocionais das atividades")
+    beneficios_emocionais = models.CharField(max_length=100, verbose_name="benefícios emocionais das atividades")
 
     def __str__(self):
         return f"{self.id_atividade}, {self.nome_atividade}, {self.descricao}, {self.beneficios_emocionais}"
-    
+
     class Meta:
-        verbose_name = "Sugestção de atividade"
+        verbose_name = "Sugestão de atividade"
         verbose_name_plural = "Sugestões de atividades"
 
+
 class CompartilhamentoProgresso(models.Model):
-    link = models.URLField(max_length=200)  # Campo para armazenar o link
+    link = models.CharField(max_length=255, default='seu_valor_padrao_aqui')
+
+# models.py
+from django.db import models
+from django.contrib.auth.models import User
+
+class Feedback(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    comentario = models.TextField()
+    data_feedback = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.link
+        return f'Feedback de {self.usuario} - {self.data_feedback}'
+
+class Meta(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    descricao = models.TextField()
+    data_criacao = models.DateTimeField(auto_now_add=True)
+    concluida = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'Meta de {self.usuario} - {self.descricao}'
+
+class Lembretes (models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    mensagem = models.CharField(max_length=255)
+    lida = models.BooleanField(default=False)
+    data_criacao = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Lembretes  para {self.usuario} - {self.mensagem}'
+
+class Estatisticas(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    total_registros = models.IntegerField(default=0)
+    total_feedbacks = models.IntegerField(default=0)
+    data_atualizacao = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f'Estatísticas de {self.usuario} - Última atualização: {self.data_atualizacao}'
+

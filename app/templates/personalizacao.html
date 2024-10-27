@@ -3,156 +3,199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personalização</title>
-   <style>
-    body, h1, h2, p, ul {
-    margin: 0;
-    padding: 0;
-}
+    <title>Personalização - Plataforma de Monitoramento de Emoções</title>
 
-/* Estilizando o corpo da página */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    color: #333;
-    line-height: 1.6;
-}
+    <!-- Importando a fonte Domine do Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Domine:wght@400;700&display=swap" rel="stylesheet">
 
-/* Estilizando o cabeçalho */
-header {
-    background: #9f6ef4;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-}
+    <style>
+        /* Aplicando a nova fonte "Domine" em toda a página */
+        body, h1, h2, p, ul, label, input, button {
+            font-family: 'Domine', serif;
+        }
 
-/* Estilizando o menu de navegação */
-nav ul {
-    list-style-type: none;
-}
+        body, h1, h2, p, ul {
+            margin: 0;
+            padding: 0;
+        }
 
-nav ul li {
-    display: inline;
-    margin: 0 15px;
-}
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
 
-nav ul li a {
-    color: white;
-    text-decoration: none;
-}
+        header {
+            background: #9f6ef4;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
 
-nav ul li a:hover {
-    text-decoration: underline;
-}
+        main {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
 
-/* Estilizando o conteúdo principal */
-main {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
+        h2 {
+            margin-bottom: 20px;
+            color: #000000;
+            text-align: center;
+        }
 
-/* Estilizando o título */
-h2 {
-    margin-bottom: 20px;
-    color: #000000;
-        text-align: center;
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
 
-}
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
 
-/* Estilizando os rótulos do formulário */
-label {
-    display: block;
-    margin-bottom: 5px;
-}
+        button {
+            background: #c0a2f3;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
 
-/* Estilizando os campos de entrada */
-input[type="text"],
-input[type="email"],
-input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
+        button:hover {
+            background: #d9c5fb;
+        }
 
-/* Estilizando o botão de envio */
-button {
-    background: #c0a2f3;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-}
+        .user-info {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f1f1f1;
+        }
 
-button:hover {
-    background: #c0a2f3;
-}
-
-/* Estilizando o rodapé */
-footer {
-    text-align: center;
-    margin-top: 20px;
-    padding: 10px 0;
-    background: #c0a2f3;
-    color: white;
-}
-.btn-home-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 15px; /* Ajusta a distância entre o botão "Voltar" e os outros botões */
+        .delete-option, .update-option {
+            color: red;
+            cursor: pointer;
+            text-decoration: underline;
+            margin-right: 10px;
         }
 
         .btn-home {
+            padding: 10px 20px;
             background-color: #00c8ff;
             color: white;
-            text-align: center;
-            text-decoration: none;
-            font-size: 12px;
-            cursor: pointer;
-            padding: 10px 20px;
+            border: none;
             border-radius: 4px;
-            width: 100%; 
-            max-width: 150px;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
         }
 
         .btn-home:hover {
-            background-color: #ffd000;
+            background-color: #fa9ceb;
         }
-   </style>
+    </style>
 </head>
 <body>
     <header>
-        <h1>PLATAFORMA DE MONITORAMENTO DE EMOÇÕES</h1>
+        <h1>Personalização</h1>
     </header>
 
     <main>
-        <h2>Personalização do Usuário</h2>
-        <form action="processar_personalizacao.php" method="POST"> <!-- Ação do formulário -->
-            <label for="nome">Nome:</label>
-            <input type="text" id="nome" name="nome" required>
+        <h2>Cadastro de Usuário</h2>
+        <form id="registration-form">
+            <label for="name">Nome:</label>
+            <input type="text" id="name" name="name" required>
 
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
 
-            <label for="senha">Senha:</label>
-            <input type="password" id="senha" name="senha" required>
+            <label for="password">Senha:</label>
+            <input type="password" id="password" name="password" required>
 
-            <button type="submit">Salvar</button>
+            <button type="submit">Cadastrar</button>
         </form>
+
+        <div class="user-info" id="user-info" style="display: none;">
+            <h3>Usuário Logado:</h3>
+            <p id="user-name"></p>
+            <p id="user-email"></p>
+            <span class="delete-option" onclick="deleteUser()">Excluir Conta</span>
+            <span class="update-option" onclick="loadUserData()">Alterar Dados</span>
+        </div>
+        <div class="text-center">
+            <a href="{% url 'home' %}" class="btn-home">Voltar para página inicial</a>
+        </div>
     </main>
 
-    <div class="btn-home-container" style="text-align: center;">
-        <a href="{% url 'home' %}" class="btn-home">Voltar para página inicial</a>
-    </div>
-    <footer>
-        <p>&copy; 2024 Plataforma de Monitoramento de Emoções. Todos os direitos reservados.</p>
-    </footer>
+    <script>
+        // Carregar dados do usuário do localStorage
+        window.onload = function() {
+            const name = localStorage.getItem('userName');
+            const email = localStorage.getItem('userEmail');
+
+            if (name && email) {
+                document.getElementById('user-name').textContent = `Nome: ${name}`;
+                document.getElementById('user-email').textContent = `Email: ${email}`;
+                document.getElementById('user-info').style.display = 'block';
+            }
+        };
+
+        document.getElementById('registration-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Captura os dados do formulário
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+
+            // Armazena os dados do usuário no localStorage
+            localStorage.setItem('userName', name);
+            localStorage.setItem('userEmail', email);
+
+            // Exibe as informações do usuário logado
+            document.getElementById('user-name').textContent = `Nome: ${name}`;
+            document.getElementById('user-email').textContent = `Email: ${email}`;
+            document.getElementById('user-info').style.display = 'block';
+
+            // Limpa o formulário
+            this.reset();
+        });
+
+        // Carregar os dados para o formulário para edição
+        function loadUserData() {
+            const name = localStorage.getItem('userName');
+            const email = localStorage.getItem('userEmail');
+
+            if (name && email) {
+                document.getElementById('name').value = name;
+                document.getElementById('email').value = email;
+            }
+
+            // Trocar o botão de cadastro para "Atualizar"
+            const submitButton = document.querySelector('button[type="submit"]');
+            submitButton.textContent = 'Atualizar';
+        }
+
+        function deleteUser() {
+            localStorage.removeItem('userName');
+            localStorage.removeItem('userEmail');
+
+            const userInfo = document.getElementById('user-info');
+            userInfo.style.display = 'none';
+            alert('Conta excluída com sucesso!');
+        }
+    </script>
 </body>
 </html>
